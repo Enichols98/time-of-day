@@ -82,6 +82,8 @@
 		<p> The copyright is going to be current based on the device that is being used, it will show the time and <a href="https://learnshareit.com/how-to-get-the-current-year-for-copyright-in-javascript/" target="_blank">year</a>
 			by the copyright sign.</p>
 
+		<p id="view"></p>
+
 		<img id="my-pic" src="http://dummyimage.com/300x400" alt="Time of Day Image" class="flexible">
 		<footer>
 			<p><small>&copy; <script>document.write(new Date().getFullYear())</script>  by
@@ -108,42 +110,80 @@
 		let myGreeting = "";
 		let myColor = "";
 		let myPic = "";
+		let today = "";
 
+		// Current day
+		let result = myDate.toLocaleDateString('en-US', { weekday: 'long'});
 
 		// TESTING TIME
 		// myHour = 3;
 
-		// Current time without adding minutes and seconds
-		time = myDate.getHours();
-		// Hours, Minutes and Seconds.
-		// time = myDate.getHours() + ":" + myDate.getMinutes() + ":" + myDate.getSeconds;
-
-		if (myHour > 22 || myHour < 4) {// night
-			myGreeting = "Good Night";
-			myColor = "darkblue";
-			myPic = "night.jpg"
-		}if (myHour > 4) {//morning
-            myGreeting = "Good Morning";
-            myColor = "pink";
-            myPic = "morning.jpg"
-		}if (myHour > 11) {//afternoon
-            myGreeting = "Good Afternoon";
+		
+		if (myHour => 5 && myHour < 12) {//morning
+            myGreeting = "Good Morning!";
+            myColor = "gold";
+            myPic = "morning.jpg";
+        } else if (myHour => 11 && myHour < 18) {//afternoon
+            myGreeting = "Good Afternoon!";
             myColor = "green";
-            myPic = "afternoon.jpg"
-        }if (myHour > 17) {//evening
-            myGreeting = "Good Evening";
-            myColor = "brown";
-            myPic = "evening.jpg"
+            myPic = "afternoon.jpg";
+        } else if (myHour > 17 && myHour < 23) {//evening
+            myGreeting = "Good Evening!";
+            myColor = "chocolate";
+            myPic = "evening.jpg";
+        } else {//night
+            myGreeting = "Good Night! ";
+            myColor = "darkblue";
+            myPic = "night.jpg";
         }
+	
 
-        myPic = 'images/' + myPic;
+		switch(today){
+            case 0:
+                today = "Sunday";
+            break;
+
+            case 1:
+                today = "Monday";
+            break;
+
+            case 2:
+                today = "Tuesday";
+            break;
+
+            case 3:
+                today = "Wednesday";
+            break;
+
+            case 4:
+                today = "Thursday";
+            break;
+
+            case 5:
+                today = "Friday";
+            break;
+
+            case 6:
+                today = "Saturday";
+            break;
+
+            default:
+                today = "Something went wrong";
+            }
 
 
+
+	myPic = 'images/' + myPic;
+	
+	
 		document.getElementById("my-greeting").innerHTML = myGreeting;
 
 		document.querySelector("html").style.backgroundColor = myColor;
 	
 		document.getElementById("my-pic").src = myPic;
+
+		// Find and show the whole date and year
+        document.getElementById("view").innerHTML = result;
 
 
 		document.getElementById("html-checker").setAttribute("href", "https://validator.w3.org/nu/?doc=" + location.href);
